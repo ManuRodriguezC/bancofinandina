@@ -23,6 +23,19 @@ También necesitarás tener configurado un emulador de Android o iOS, o bien un 
 
 1. **Clona el repositorio:**
 
-   ```bash
+   ```
    git clone https://github.com/ManuRodriguezC/bancofinandina.git
    cd bancofinandina
+   ```
+
+2. **Instalar Dependecias**
+```flutter pub get```
+
+3. **Actualizar todas las dependencias de ser necesario**
+```flutter pub upgrade```
+
+4. **Selecciona el dispositivo para simular, ya sea por USB o Simulador Virtual**
+```flutter devices```
+
+5. **Correr la App**
+```flutter run```
