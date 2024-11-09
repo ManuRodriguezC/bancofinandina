@@ -20,22 +20,20 @@ class _CarouselState extends State<CarouselState> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _currentPage,
-        children: pages.map((page) {
-          return ViewCarousel(
-              background: page['background'],
-              title: page['title'] ?? '',
-              subtitle: page['subtitle'] ?? '',
-              parraf: page['parraf'] ?? '',
-              image: page['image'] ?? '',
-              size: page['size'] ?? '',
-              onNextPage: _nextPage,
-              end: page['end'] == "end" ? true : false,
-              currentPage: _currentPage);
-        }).toList(),
-      ),
+    return IndexedStack(
+      index: _currentPage,
+      children: pages.map((page) {
+        return ViewCarousel(
+            background: page['background'],
+            title: page['title'] ?? '',
+            subtitle: page['subtitle'] ?? '',
+            parraf: page['parraf'] ?? '',
+            image: page['image'] ?? '',
+            size: page['size'] ?? '',
+            onNextPage: _nextPage,
+            end: page['end'] == "end" ? true : false,
+            currentPage: _currentPage);
+      }).toList(),
     );
   }
 }

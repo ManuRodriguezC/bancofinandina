@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../dataSource/info_pages.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'animate_button.dart';
 
 class ButtonPage extends StatefulWidget {
   final num currentPage;
@@ -20,7 +21,6 @@ class ButtonPage extends StatefulWidget {
 
 class _ButtonPageState extends State<ButtonPage> {
   double _containerHeight = 80;
-  double _containerWidth = 0;
   bool _hasEffectStarted = false;
 
   @override
@@ -34,8 +34,7 @@ class _ButtonPageState extends State<ButtonPage> {
       Future.delayed(const Duration(milliseconds: 100), () {
         if (mounted && widget.effect) {
           setState(() {
-            _containerHeight = 60;
-            _containerWidth = double.infinity;
+            _containerHeight = 100;
           });
         }
       });
@@ -51,6 +50,7 @@ class _ButtonPageState extends State<ButtonPage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return VisibilityDetector(
       key: Key('ButtonPage-${widget.hashCode}'),
       onVisibilityChanged: (info) {
@@ -64,7 +64,7 @@ class _ButtonPageState extends State<ButtonPage> {
           duration: const Duration(milliseconds: 100),
           margin: !_hasEffectStarted
               ? const EdgeInsets.all(15)
-              : const EdgeInsets.all(25),
+              : const EdgeInsets.only(bottom: 20, left: 25, right: 25),
           padding: !_hasEffectStarted
               ? const EdgeInsets.all(10)
               : const EdgeInsets.all(0),
@@ -78,25 +78,25 @@ class _ButtonPageState extends State<ButtonPage> {
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 22),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 22),
                         child: Text(
                           "Saltar",
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 15,
+                              fontSize: screenWidth * 0.045,
                               fontWeight: FontWeight.w500),
                         ),
                       ),
                       Row(
                         children: List.generate(pages.length, (index) {
                           return Padding(
-                            padding: const EdgeInsets.all(1.5),
+                            padding: const EdgeInsets.all(1.3),
                             child: AnimatedContainer(
                               duration: const Duration(microseconds: 20),
                               margin: const EdgeInsets.all(3),
-                              width: index == widget.currentPage ? 23 : 11,
-                              height: 11,
+                              width: index == widget.currentPage ? 19 : 9.5,
+                              height: 9.5,
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(100)),
@@ -120,29 +120,13 @@ class _ButtonPageState extends State<ButtonPage> {
                             Icons.arrow_forward_rounded,
                             size: 32,
                           ),
-                          color: Color(int.parse(pages[widget.currentPage.toInt()]['color'] ?? '0xFFE31952')),
+                          color: Color(int.parse(
+                              pages[widget.currentPage.toInt()]['color'] ??
+                                  '0xFFE31952')),
                         ),
                       )
                     ])
-              : AnimatedContainer(
-                  duration: const Duration(seconds: 10),
-                  width: _containerWidth,
-                  height: 100,
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(100)),
-                      color: Colors.white),
-                  alignment: Alignment.centerRight,
-                  child: Center(
-                    child: Text(
-                      "Libera tu banca",
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Color(int.parse(pages[widget.currentPage.toInt()]['color'] ?? '0xFFE31952')),
-                          backgroundColor: Colors.transparent),
-                    ),
-                  ),
-                )),
+              : ButtonAnimated()),
     );
   }
 }

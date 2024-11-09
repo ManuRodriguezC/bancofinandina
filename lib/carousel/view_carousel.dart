@@ -27,6 +27,7 @@ class ViewCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         Container(
@@ -36,6 +37,7 @@ class ViewCarousel extends StatelessWidget {
             color: Colors.red[300],
             image: background != null
                 ? DecorationImage(
+                    // Imagen de Fondo de Pantalla
                     image: AssetImage("assets/images/$background"),
                     fit: BoxFit.cover,
                   )
@@ -45,6 +47,7 @@ class ViewCarousel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AnimatedContainer(
+                // Imagen de Logo
                 duration: const Duration(seconds: 1),
                 width: (title?.isEmpty ?? true ? 50 : 100),
                 height: (title?.isEmpty ?? true ? 50 : 100),
@@ -62,8 +65,8 @@ class ViewCarousel extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 30, right: 30),
                     child: Text(
                       title!,
-                      style: const TextStyle(
-                          fontSize: 22,
+                      style: TextStyle(
+                          fontSize: screenWidth * 0.07,
                           color: Colors.white,
                           fontFamily: 'Roboto'),
                       textAlign: TextAlign.center,
@@ -71,10 +74,8 @@ class ViewCarousel extends StatelessWidget {
               title?.isNotEmpty ?? false
                   ? const SizedBox(height: 300)
                   : AnimatedContainer(
-                      width: (size?.isEmpty ?? true)
-                          ? 360
-                          : MediaQuery.of(context).size.width,
-                      height: 420,
+                      width: (size?.isEmpty ?? true) ? 310 : (screenWidth),
+                      height: 380,
                       duration: const Duration(seconds: 2),
                       child: Image.asset(
                         "assets/images/$image",
@@ -82,7 +83,8 @@ class ViewCarousel extends StatelessWidget {
                       ),
                     ),
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(14),
+                margin: const EdgeInsets.only(bottom: 10),
                 child: Column(children: [
                   Padding(
                     padding: (title?.isEmpty ?? true
@@ -91,7 +93,9 @@ class ViewCarousel extends StatelessWidget {
                     child: Text(
                       subtitle,
                       style: TextStyle(
-                          fontSize: (title?.isEmpty ?? true) ? 24.2 : 14.2,
+                          fontSize: (title?.isEmpty ?? true)
+                              ? (screenWidth * 0.08)
+                              : (screenWidth * 0.043),
                           color: Colors.white,
                           fontFamily: 'Roboto',
                           fontWeight: (title?.isEmpty ?? true)
@@ -103,7 +107,9 @@ class ViewCarousel extends StatelessWidget {
                   Text(
                     parraf,
                     style: TextStyle(
-                        fontSize: (title?.isEmpty ?? true) ? 14.2 : 25,
+                        fontSize: (title?.isEmpty ?? true)
+                            ? (screenWidth * 0.044)
+                            : (screenWidth * 0.075),
                         color: Colors.white,
                         fontFamily: 'Roboto',
                         fontWeight: (title?.isEmpty ?? true)
